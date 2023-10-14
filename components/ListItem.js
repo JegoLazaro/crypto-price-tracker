@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 
-const ListItem = ( {coinName, logo, currentPrice, priceChange, abbrv} ) => {
+const ListItem = ( {coinName, logo, currentPrice, priceChange, abbrv, onPress} ) => {
     const priceChangeColor = priceChange > 0 ? "#34c759" : "#ff3b30";
   
     return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.itemWrapper}>
         {/* Left Side */}
         <View style={styles.leftWrapper}>
