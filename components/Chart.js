@@ -1,5 +1,9 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React from "react";
+// import {ChartDot, ChartPath, ChartPathProvider} from '@rainbow-me/animated-charts';
+import { LineChart, CandlestickChart } from "react-native-wagmi-charts";
+
+export const { width: SIZE } = Dimensions.get("window");
 
 const Chart = ({
   currentPrice,
@@ -11,7 +15,88 @@ const Chart = ({
 }) => {
   // console.log(coinName)
   const priceChangeColor = priceChange > 0 ? "#34c759" : "#ff3b30";
-
+  const data = [
+    {
+      timestamp: 1625261034,
+      value: 2111.0690565535333,
+    },
+    {
+      timestamp: 1625264634,
+      value: 2103.2157660083094,
+    },
+    {
+      timestamp: 1625268234,
+      value: 2101.439907140796,
+    },
+    {
+      timestamp: 1625271834,
+      value: 2096.1108737260056,
+    },
+    {
+      timestamp: 1625275434,
+      value: 2117.0580894765258,
+    },
+    {
+      timestamp: 1625279034,
+      value: 2147.198549967824,
+    },
+    {
+      timestamp: 1625282634,
+      value: 2157.880584866453,
+    },
+    {
+      timestamp: 1625286234,
+      value: 2143.0406734474163,
+    },
+    {
+      timestamp: 1625289834,
+      value: 2156.585317174574,
+    },
+    {
+      timestamp: 1625293434,
+      value: 2146.5667786388008,
+    },
+    {
+      timestamp: 1625297034,
+      value: 2128.9966660808464,
+    },
+    {
+      timestamp: 1625300634,
+      value: 2144.8246185316075,
+    },
+    {
+      timestamp: 1625304234,
+      value: 2154.5155153219903,
+    },
+    {
+      timestamp: 1625307834,
+      value: 2148.700609656582,
+    },
+    {
+      timestamp: 1625311434,
+      value: 2205.508154935314,
+    },
+    {
+      timestamp: 1625315034,
+      value: 2199.3093598004393,
+    },
+    {
+      timestamp: 1625318634,
+      value: 2223.107884607486,
+    },
+    {
+      timestamp: 1625322234,
+      value: 2225.674548870885,
+    },
+    {
+      timestamp: 1625325834,
+      value: 2209.40228941738,
+    },
+    {
+      timestamp: 1625329434,
+      value: 2217.108207328355,
+    },
+  ];
 
   return (
     <View style={styles.chartWrapper}>
@@ -30,9 +115,33 @@ const Chart = ({
           <Text style={styles.boldTitle}>
             ${currentPrice.toLocaleString("en-US", { currency: "USD" })}
           </Text>
-          <Text style={[styles.title, {color: priceChangeColor}]}>{priceChange.toFixed(4)}%</Text>
+          <Text style={[styles.title, { color: priceChangeColor }]}>
+            {priceChange.toFixed(4)}%
+          </Text>
         </View>
       </View>
+
+      {/* <ChartPath height={SIZE / 2} stroke="yellow" width={SIZE} />
+      <ChartDot style={{ backgroundColor: 'blue' }} /> */}
+
+      <LineChart.Provider data={sparkline}>
+        <LineChart yGutter={8}>
+          <LineChart.Path width={2} />
+          <LineChart.CursorCrosshair>
+            <LineChart.Tooltip
+              textStyle={{
+                backgroundColor: "black",
+                borderRadius: 4,
+                color: "white",
+                fontSize: 18,
+                padding: 4,
+              }}
+            />
+          </LineChart.CursorCrosshair>
+        </LineChart>
+        <LineChart.PriceText />
+        <LineChart.DatetimeText />
+      </LineChart.Provider>
     </View>
   );
 };

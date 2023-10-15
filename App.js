@@ -10,7 +10,7 @@ import Chart from "./components/Chart";
 
 export default function App() {
   const bottomSheetRef = useRef(null);
-  const snapPoints = useMemo(() => ["8%","50%"], []);
+  const snapPoints = useMemo(() => ["8%","60%"], []);
   const [selectedCoinData, setSelectedCoinData] = useState(null);
 
   const openModal = (item) => {
