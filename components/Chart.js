@@ -99,6 +99,7 @@ const Chart = ({
   ];
 
   return (
+    <LineChart.Provider data={sparkline}>
     <View style={styles.chartWrapper}>
       {/* Title */}
       <View style={styles.titlesWrapper}>
@@ -113,7 +114,7 @@ const Chart = ({
         </View>
         <View style={styles.lowerTitles}>
           <Text style={styles.boldTitle}>
-            ${currentPrice.toLocaleString("en-US", { currency: "USD" })}
+            {/* ${currentPrice.toLocaleString("en-US", { currency: "USD" })} */}
           </Text>
           <Text style={[styles.title, { color: priceChangeColor }]}>
             {priceChange.toFixed(4)}%
@@ -121,36 +122,48 @@ const Chart = ({
         </View>
       </View>
 
-      {/* <ChartPath height={SIZE / 2} stroke="yellow" width={SIZE} />
-      <ChartDot style={{ backgroundColor: 'blue' }} /> */}
-
-      <LineChart.Provider data={sparkline}>
-        <LineChart yGutter={8}>
-          <LineChart.Path width={2} />
-          <LineChart.CursorCrosshair>
-            <LineChart.Tooltip
-              textStyle={{
-                backgroundColor: "black",
-                borderRadius: 4,
-                color: "white",
-                fontSize: 18,
-                padding: 4,
+      <View style={styles.lineChartWrapper}>
+          <LineChart yGutter={8}>
+            <LineChart.PriceText
+              format={({ value }) => {
+                "worklet";
+                if (value === "") {
+                  return `$${currentPrice.toFixed(2).toLocaleString("en-US", { currency: "USD" })}`;
+                }
+                return `$${value.toLocaleString("en-US", {
+                  currency: "USD",
+                })}`;
               }}
+              style={styles.boldTitle}
             />
-          </LineChart.CursorCrosshair>
-        </LineChart>
-        <LineChart.PriceText />
-        <LineChart.DatetimeText />
-      </LineChart.Provider>
+            <LineChart.Path width={2} style={styles.chartPath}/>
+            <LineChart.CursorCrosshair>
+              
+              <LineChart.Tooltip
+                textStyle={{
+                  backgroundColor: "black",
+                  borderRadius: 4,
+                  color: "white",
+                  fontSize: 18,
+                  padding: 4,
+                }}
+              />
+            </LineChart.CursorCrosshair>
+            
+          </LineChart>
+      </View>
     </View>
+    </LineChart.Provider>
   );
 };
 
 const styles = StyleSheet.create({
   chartWrapper: {
-    margin: 16,
+    marginVertical: 14,
   },
-  titlesWrapper: {},
+  titlesWrapper: {
+    marginHorizontal: 20
+  },
   upperTitles: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -176,12 +189,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   boldTitle: {
+    position: "absolute",
+    top: -27,
+    marginHorizontal: 155,
     fontSize: 26,
     fontWeight: "bold",
   },
   title: {
+    position: "absolute",
+    top: 0,
+    right: 0,
     fontSize: 20,
   },
+  lineChartWrapper: {
+  },
+  chartPath: {}
 });
 
 export default Chart;
