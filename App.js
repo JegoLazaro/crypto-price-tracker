@@ -36,7 +36,8 @@ export default function App() {
           <View style={styles.divider}></View>
           <FlatList
             keyExtractor={(item) => item.id}
-            data={SAMPLE_DATA}
+            data={data} 
+            //Use "SAMPLE_DATA" for testing, use "data" for API call
             renderItem={({ item }) => (
               <ListItem
                 coinName={item.name}
