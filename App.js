@@ -1,17 +1,27 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useRef, useMemo, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useRef, useMemo, useState, useEffect } from "react";
+import { FlatList, StyleSheet, Text, View, Image } from "react-native";
 import ListItem from "./components/ListItem";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { SAMPLE_DATA } from "./assets/data/sampleData";
 import Chart from "./components/Chart";
+import { getMarketData } from "./services/cryptoService";
 
 export default function App() {
+  const [data, setData] = useState([]);
   const bottomSheetRef = useRef(null);
-  const snapPoints = useMemo(() => ["8%","60%"], []);
+  const snapPoints = useMemo(() => ["8%", "60%"], []);
   const [selectedCoinData, setSelectedCoinData] = useState(null);
+
+  useEffect(() => {
+    const fetchMarketData = async () => {
+      const marketData = await getMarketData();
+      setData(marketData);
+    };
+    fetchMarketData();
+  }, []);
 
   const openModal = (item) => {
     setSelectedCoinData(item);
@@ -26,7 +36,7 @@ export default function App() {
           <View style={styles.divider}></View>
           <FlatList
             keyExtractor={(item) => item.id}
-            data={SAMPLE_DATA}
+            data={data}
             renderItem={({ item }) => (
               <ListItem
                 coinName={item.name}
@@ -48,7 +58,7 @@ export default function App() {
       >
         <View style={styles.contentContainer}>
           {selectedCoinData ? (
-            <Chart 
+            <Chart
               currentPrice={selectedCoinData.current_price}
               logo={selectedCoinData.image}
               coinName={selectedCoinData.name}
@@ -58,8 +68,19 @@ export default function App() {
               abbrv={selectedCoinData.symbol}
               sparkline={selectedCoinData.sparkline_in_7d.price}
             />
-          ) : null}
-          
+          ) : (
+            <View>
+              <Text
+                style={{ fontWeight: "bold", textAlign: "center", padding: 10 }}
+              >
+                Choose A Coin to View Chart
+              </Text>
+              <Text style={{ color: "grey", textAlign: "center", padding: 5 }}>
+                React Native Crypto Price Tracker - Lazaro
+              </Text>
+              <Image source={require('../crypto-price-tracker/assets/mypic.jpg')} style={{height: "90%", width: "auto", justifyContent: "center"}} />
+            </View>
+          )}
         </View>
       </BottomSheet>
     </GestureHandlerRootView>
