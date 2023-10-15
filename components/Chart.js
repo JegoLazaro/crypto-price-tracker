@@ -128,11 +128,10 @@ const Chart = ({
               format={({ value }) => {
                 "worklet";
                 if (value === "") {
-                  return `$${currentPrice.toFixed(2).toLocaleString("en-US", { currency: "USD" })}`;
+                  return `$${currentPrice.toLocaleString("en-US", { currency: "USD" })}`;
                 }
-                return `$${value.toLocaleString("en-US", {
-                  currency: "USD",
-                })}`;
+                const formattedValue = `$${parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`
+                return formattedValue;
               }}
               style={styles.boldTitle}
             />
@@ -191,13 +190,13 @@ const styles = StyleSheet.create({
   boldTitle: {
     position: "absolute",
     top: -27,
-    marginHorizontal: 155,
+    marginHorizontal: 150,
     fontSize: 26,
     fontWeight: "bold",
   },
   title: {
     position: "absolute",
-    top: 0,
+    top: -5,
     right: 0,
     fontSize: 20,
   },
