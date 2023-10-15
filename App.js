@@ -36,7 +36,7 @@ export default function App() {
           <View style={styles.divider}></View>
           <FlatList
             keyExtractor={(item) => item.id}
-            data={data}
+            data={SAMPLE_DATA}
             renderItem={({ item }) => (
               <ListItem
                 coinName={item.name}
@@ -90,10 +90,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#000"
   },
   largeTitle: {
     fontSize: 34,
     fontWeight: "bold",
+    color: "#F8BD00"
   },
   titleWrapper: {
     marginTop: 60,
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     height: 0.6,
     marginTop: 10,
     width: "98%",
-    backgroundColor: "#a9abb1",
+    backgroundColor: "##BCBBBB",
     justifyContent: "center",
   },
   bottomSheet: {

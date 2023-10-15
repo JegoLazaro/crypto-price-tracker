@@ -45,16 +45,17 @@ const styles = StyleSheet.create({
     width: 50,
   },
   rightWrapper: {
-    alignItems: "flex",
+    alignItems: "flex-end",
   },
   titleWrapper: {
     marginLeft: 8,
   },
   title: {
     fontSize:20,
+    color: "#CDCDCD" 
   },
   subtitle: {
-    color: "#a9abb1",
+    color: "#A1A1A1",
     marginTop: 4,
     fontSize:14,
   },

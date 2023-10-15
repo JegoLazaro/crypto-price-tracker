@@ -42,6 +42,6 @@ export const getMarketData = async () => {
 
     return formattedResponse;
   } catch (error) {
-    console.log(error.message);
+    console.log("ERROR IN API CALL: "+ error.message);
   }
 };

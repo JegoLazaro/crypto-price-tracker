@@ -1,12 +1,24 @@
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import {ChartDot, ChartPath, ChartPathProvider} from '@rainbow-me/animated-charts';
 import { LineChart, CandlestickChart } from "react-native-wagmi-charts";
+import { useSharedValue } from "react-native-reanimated";
 
 export const { width: SIZE } = Dimensions.get("window");
 
 const Chart = ({ currentPrice, logo, coinName, abbrv, priceChange, sparkline }) => {
+  const latestCurrPrice = useSharedValue(currentPrice);
   const priceChangeColor = priceChange > 0 ? "#34c759" : "#ff3b30";
+  const [priceReady, setPriceReady] = useState(false);
+
+  useEffect(() => {
+    latestCurrPrice.value = currentPrice;
+
+    setTimeout(() => {
+      setPriceReady(true);
+    }, 0)
+
+  }, [currentPrice])
 
   return (
     <LineChart.Provider data={sparkline}>
@@ -33,20 +45,24 @@ const Chart = ({ currentPrice, logo, coinName, abbrv, priceChange, sparkline }) 
       </View>
 
       <View style={styles.lineChartWrapper}>
-          <LineChart yGutter={8}>
+          { priceReady ?
+          (<LineChart yGutter={8}>
             <LineChart.PriceText
               format={({ value }) => {
                 "worklet";
                 if (value === "") {
-                  return `$${currentPrice.toLocaleString("en-US", { currency: "USD" })}`;
+                  return `$${latestCurrPrice.value.toLocaleString("en-US", { currency: "USD" })}`;
                 }
                 const formattedValue = `$${parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`
                 return formattedValue;
               }}
               style={styles.boldTitle}
             />
-            <LineChart.Path width={2} style={styles.chartPath}/>
-            <LineChart.CursorCrosshair>
+            <LineChart.Path color= "#000" width={2} style={styles.chartPath}>
+            <LineChart.Gradient color="#05E7FF"/>
+            </LineChart.Path>
+            <LineChart.CursorLine />
+            <LineChart.CursorCrosshair color="#FF4B05">
               
               <LineChart.Tooltip
                 textStyle={{
@@ -59,7 +75,9 @@ const Chart = ({ currentPrice, logo, coinName, abbrv, priceChange, sparkline }) 
               />
             </LineChart.CursorCrosshair>
             
-          </LineChart>
+          </LineChart>)
+          : null
+          }
       </View>
     </View>
     </LineChart.Provider>
@@ -111,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   lineChartWrapper: {
+    
   },
   chartPath: {}
 });
