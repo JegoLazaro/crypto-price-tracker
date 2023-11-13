@@ -106,11 +106,11 @@ const styles = StyleSheet.create({
     height: 0.6,
     marginTop: 10,
     width: "98%",
-    backgroundColor: "##BCBBBB",
+    backgroundColor: "#BCBBBB",
     justifyContent: "center",
   },
   bottomSheet: {
-    shadowColor: "#000",
+    shadowColor: "#05E7FF",
     shadowOffset: {
       width: 0,
       height: -4,
