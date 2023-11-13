@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "crypto-price-tracker",
-    "slug": "crypto-price-tracker",
+    "slug": "crypto-price-tracker-jl-cg",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a38bae4e-9b49-4f73-b638-6dc605826c9a"
+      }
+    },
+    "owner": "jego01",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/a38bae4e-9b49-4f73-b638-6dc605826c9a"
     }
   }
 }

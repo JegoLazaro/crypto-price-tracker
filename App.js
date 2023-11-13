@@ -77,7 +77,7 @@ export default function App() {
                 Choose A Coin to View Chart
               </Text>
               <Text style={{ color: "grey", textAlign: "center", padding: 5 }}>
-                React Native Crypto Price Tracker - Lazaro
+                React Native Crypto Price Tracker - Jego Lazaro
               </Text>
               <Image source={require('../crypto-price-tracker/assets/mypic.jpg')} style={{height: "90%", width: "auto", justifyContent: "center"}} />
             </View>
