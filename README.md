@@ -24,7 +24,7 @@ git clone https://github.com/jegolazaro/react-native-crypto-price-tracker.git
 ```
 ## Navigate to the project directory:
 
-`cd react-native-crypto-price-tracker`
+`cd crypto-price-tracker`
 
 ## Install dependencies:
 `npm install` or `yarn install`
